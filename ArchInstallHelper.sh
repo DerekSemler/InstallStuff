@@ -1,7 +1,7 @@
 lsblk
 echo "Which Drive are you installing to?"
 read drive
-pacstrap /mnt base base-devel sudo reflector bash-completion zsh-completions zsh
+pacstrap /mnt base base-devel sudo reflector bash-completion zsh-completions zsh grub
 reflector --verbose -l 5 --sort rate --save /etc/pacman.d/mirrorlist --country US
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 genfstab -U -p /mnt >> /mnt/etc/fstab
@@ -20,7 +20,6 @@ useradd -m -g users -G wheel,storage,power -s /bin/bash impulse
 passwd impulse
 EDITOR=nano visudo
 mkinitcpio -p linux
-pacman -S grub
 grub-install /dev/$drive
 grub-mkconfig -o /boot/grub/grub.cfg
 exit
