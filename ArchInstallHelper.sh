@@ -1,3 +1,6 @@
+lsblk
+echo "Which Drive are you installing to?"
+read drive
 pacstrap /mnt base base-devel sudo reflector bash-completion zsh-completions zsh
 reflector --verbose -l 5 --sort rate --save /etc/pacman.d/mirrorlist --country US
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
@@ -18,7 +21,7 @@ passwd impulse
 EDITOR=nano visudo
 mkinitcpio -p linux
 pacman -S grub
-grub-install /dev/sdX
+grub-install /dev/$drive
 grub-mkconfig -o /boot/grub/grub.cfg
 exit
 umount -R /mnt
